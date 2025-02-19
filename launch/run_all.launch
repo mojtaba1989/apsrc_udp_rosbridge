@@ -1,0 +1,36 @@
+<launch>
+  <!-- HERE to MABx -->
+  <arg name="here_to_mabx_enb" default="true" />
+  <arg name="ip_here_to_mabx" default="127.0.0.1"/>
+  <arg name="port_here_to_mabx" default="1552"/>
+
+  <!-- ROS to MABX-->
+  <arg name="ros_to_mabx_enb" default="true" />
+  <arg name="ip_ros_to_mabx" default="127.0.0.1"/>
+  <arg name="port_ros_to_mabx" default="1553"/>
+  <arg name="frequency_ros_to_mabx" default="10.0"/>
+
+  <!--ROS to MKx (Cohda)-->
+  <arg name="ros_to_mkx_enb" default="true" />
+  <arg name="ip_ros_to_mkx" default="127.0.0.1"/>
+  <arg name="port_ros_to_mkx" default="1554"/>
+  <arg name="frequency_ros_to_mkx" default="10.0"/>
+
+  <node if="$(arg here_to_mabx_enb)" pkg="apsrc_udp_rosbridge" type="here_to_mabx" name="here_to_mabx" output="screen" >
+    <param name="destination_port" value="$(arg port_here_to_mabx)" />
+    <param name="destination_ip" value="$(arg ip_here_to_mabx)" />
+  </node>
+
+  <node if="$(arg ros_to_mabx_enb)" pkg="apsrc_udp_rosbridge" type="ros_to_mabx" name="ros_to_mabx" output="screen" >
+    <param name="destination_port" value="$(arg port_ros_to_mabx)" />
+    <param name="destination_ip" value="$(arg ip_ros_to_mabx)" />
+    <param name="frequency" value="$(arg frequency_ros_to_mabx)" />
+  </node>
+
+  <node if="$(arg ros_to_mkx_enb)" pkg="apsrc_udp_rosbridge" type="ros_to_mkx" name="ros_to_mkx" output="screen" >
+    <param name="destination_port" value="$(arg port_ros_to_mkx)" />
+    <param name="destination_ip" value="$(arg ip_ros_to_mkx)" />
+    <param name="frequency" value="$(arg frequency_ros_to_mkx)" />
+  </node>
+
+</launch>
