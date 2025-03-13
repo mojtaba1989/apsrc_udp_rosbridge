@@ -10,11 +10,11 @@ namespace UDP_PACKETS {
 
 class header {//24 bytes
 public:
-	uint8_t msg_id;
+  uint8_t msg_id;
   uint8_t msg_type;
-	int32_t time_stamp[2];
+  int32_t time_stamp[2];
   uint32_t data_size;
-	int8_t info[10];
+  int8_t info[10];
 
 	int pack(std::vector<uint8_t> &buffer) {
     buffer[0] = msg_id;
