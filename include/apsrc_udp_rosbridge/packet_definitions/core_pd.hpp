@@ -16,7 +16,7 @@ public:
   uint32_t data_size;
   int8_t info[10];
 
-	int pack(std::vector<uint8_t> &buffer) {
+  int pack(std::vector<uint8_t> &buffer) {
     buffer[0] = msg_id;
     buffer[1] = msg_type;
     std::memcpy(&buffer[2], &time_stamp, 8);
