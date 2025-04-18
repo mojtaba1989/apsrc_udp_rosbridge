@@ -116,7 +116,7 @@ public:
     udp_msg_.spat_msg.distance = msg->distance_to_stop;
     udp_msg_.spat_msg.phase = msg->phase;
     udp_msg_.spat_msg.time_to_change = msg->time_to_stop;
-    udp_msg_.spat_msg.waypoint_id = msg->stop_waypoint;
+    udp_msg_.spat_msg.stop_wp_id = msg->stop_waypoint;
 
   }
 

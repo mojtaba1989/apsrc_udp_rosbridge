@@ -143,25 +143,35 @@ public:
 
 class spatMsg { // 10 bytes
 public:
-	int32_t waypoint_id = -1;
+  int32_t intersection_id = -1;
+	int32_t stop_wp_id = -1;
+  int32_t depart_wp_id = -1;
 	float distance = 0;
 	uint8_t phase = 0;
-	uint8_t time_to_change = 0;
+	float time_to_change = 0;
+  float cycle_time[3] = {-1.0, -1.0, -1.0};
+
 
 	int pack(std::vector<uint8_t> &buffer, int i){
-		buffer[i] 	= phase;
-		buffer[i+1] = time_to_change;
-		std::memcpy(&buffer[i+2], &waypoint_id, 4);
-		std::memcpy(&buffer[i+6], &distance, 4);
-		return i+10;
+    std::memcpy(&buffer[i], &intersection_id, 4);
+    std::memcpy(&buffer[i+4], &stop_wp_id, 4);
+    std::memcpy(&buffer[i+8], &depart_wp_id, 4);
+    std::memcpy(&buffer[i+12], &distance, 4);
+    buffer[i+16] = phase;
+    std::memcpy(&buffer[i+17], &time_to_change, 4);
+    std::memcpy(&buffer[i+21], &cycle_time, 12);
+    return i+33;
 	}
 
   int unpack(std::vector<uint8_t> &buffer, int i){
-    phase = buffer[i];
-    time_to_change = buffer[i+1];
-    std::memcpy(&waypoint_id, &buffer[i+2], 4);
-    std::memcpy(&distance, &buffer[i+6], 4);
-    return i+10;
+    std::memcpy(&intersection_id, &buffer[i], 4);
+    std::memcpy(&stop_wp_id, &buffer[i+4], 4);
+    std::memcpy(&depart_wp_id, &buffer[i+8], 4);
+    std::memcpy(&distance, &buffer[i+12], 4);
+    phase = buffer[i+16];
+    std::memcpy(&time_to_change, &buffer[i+17], 4);
+    std::memcpy(&cycle_time, &buffer[i+21], 12);
+    return i+33;
   }
 };
 
