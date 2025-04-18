@@ -13,7 +13,7 @@ class cv_to_ros
 {
 private:
   // Nodehandles
-  ros::NodeHandle nh_;
+  ros::NodeHandle nh_, pnh_;
 
   // Internal state
   AS::Network::UDPServer udp_server_;
@@ -30,6 +30,7 @@ private:
 public:
   cv_to_ros(){
     nh_ = ros::NodeHandle();
+    pnh_ = ros::NodeHandle("~");
     loadParams();
     if (startServer(udp_server_, server_ip_, server_port_))
     {
@@ -61,8 +62,8 @@ public:
 
   void loadParams()
   {
-    nh_.param<std::string>("server_ip", server_ip_, "127.0.0.1");
-    nh_.param("server_port", server_port_, 1551);
+    pnh_.param<std::string>("server_ip", server_ip_, "127.0.0.1");
+    pnh_.param("server_port", server_port_, 1551);
     ROS_INFO("Parameters Loaded");
   }
   

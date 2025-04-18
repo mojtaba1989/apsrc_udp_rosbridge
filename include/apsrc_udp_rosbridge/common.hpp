@@ -47,7 +47,7 @@ bool startServer(AS::Network::UDPServer &udp_server, std::string server_ip, int 
 
 float path_curvature_score(size_t num_of_wp, autoware_msgs::Lane base_waypoints_, int32_t closest_waypoint_id_)
 {
-  if (base_waypoints_.waypoints.size() < (closest_waypoint_id_ + num_of_wp)){
+  if (base_waypoints_.waypoints.size() <= (closest_waypoint_id_ + num_of_wp )){
     return 0;
   }
   double dx = base_waypoints_.waypoints[closest_waypoint_id_].pose.pose.position.x - base_waypoints_.waypoints[closest_waypoint_id_+num_of_wp].pose.pose.position.x;

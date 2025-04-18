@@ -17,7 +17,7 @@ class ros_to_mkx
 {
 
 private:
-  ros::NodeHandle nh_;
+  ros::NodeHandle nh_, pnh_;
   ros::Subscriber gps_sub_, current_velocity_sub_, imu_sub_;
   
   AS::Network::UDPInterface udp_interface_;
@@ -34,6 +34,7 @@ private:
 public:
   ros_to_mkx(){
     nh_ = ros::NodeHandle();
+    pnh_ = ros::NodeHandle("~");
     loadParams();
 
     if (openConnection(udp_interface_, destination_ip_, destination_port_))
@@ -55,9 +56,9 @@ public:
 
   void loadParams()
   {
-    nh_.param<std::string>("destination_ip", destination_ip_, "127.0.0.1");
-    nh_.param("destination_port", destination_port_, 1552);
-    nh_.param("frequency", frequency_, 10.0);
+    pnh_.param<std::string>("destination_ip", destination_ip_, "127.0.0.1");
+    pnh_.param("destination_port", destination_port_, 1552);
+    pnh_.param("frequency", frequency_, 10.0);
     ROS_INFO("Parameters Loaded");
     return;
   }

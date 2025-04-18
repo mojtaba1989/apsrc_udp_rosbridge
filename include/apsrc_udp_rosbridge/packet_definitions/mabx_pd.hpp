@@ -256,7 +256,92 @@ public:
     std::memcpy(&cmd.waypoint_id, &buffer[idx], 4);
     std::memcpy(&cmd.num_of_waypoints, &buffer[idx+4], 1);
     std::memcpy(&cmd.lat_shift_vector, &buffer[idx+5], 800);
-  return idx+805;
+    return idx+805;
+  }
+};
+
+class mabxInfo {
+public:
+  // Mode Blending
+  uint8_t mode_blending_flag = 0;
+  uint8_t mode_in_use=255;
+  float mode_blending_saving = 0.0;
+
+  // EcoRoute
+  uint8_t eco_route_flag = 0;
+  uint8_t opt_route = 1;
+  float def_route_time = 0.0;
+  float def_route_energy = 0.0;
+  float opt_route_time_save_min = 0.0;
+  float opt_route_energy_save_Kwh = 0.0;
+  float opt_route_energy_save_percent = 0.0;
+
+  // RANGE
+  uint8_t range_estimation_flag = 0;
+  float energy_to_complete_opt_route = 0.0;
+  float range_if_opt_route_not_doable = 0.0;
+  uint8_t opt_route_doable = 0;
+
+  // Intel
+  uint8_t mass_learn_status = 0;
+  float mass = -1;
+  float change_vs_normal = -999;
+
+  uint8_t road_load_learn_status = 0;
+  float road_load_coefficients[3] = {-999, -999, -999};
+  float chnage_vs_epa [3] = {-999, -999, -999};
+
+  uint8_t eco_drive_status = 0;
+  float saving_per_signal = -999;
+  float time_def_per_signal = -999;
+
+  uint8_t vehicle_follow_status = 0;
+  float vehicle_follow_saving = -999;
+
+  uint8_t reduced_order_model_status = 0;
+  float reduced_order_model_accuracy = -999;
+
+  int unpack(const std::vector<uint8_t> &buffer, int idx)
+  {
+    std::memcpy(&mode_blending_flag, &buffer[idx], 1);
+    std::memcpy(&mode_in_use, &buffer[idx+1], 1);
+    std::memcpy(&mode_blending_saving, &buffer[idx+2], 4);
+
+    std::memcpy(&eco_route_flag, &buffer[idx+6], 1);
+    std::memcpy(&opt_route, &buffer[idx+7], 1);
+    std::memcpy(&def_route_time, &buffer[idx+8], 4);
+    std::memcpy(&def_route_energy, &buffer[idx+12], 4);
+    std::memcpy(&opt_route_time_save_min, &buffer[idx+16], 4);
+    std::memcpy(&opt_route_energy_save_Kwh, &buffer[idx+20], 4);
+    std::memcpy(&opt_route_energy_save_percent, &buffer[idx+24], 4);
+    std::memcpy(&range_estimation_flag, &buffer[idx+28], 1);
+    std::memcpy(&energy_to_complete_opt_route, &buffer[idx+29], 4);
+    std::memcpy(&range_if_opt_route_not_doable, &buffer[idx+33], 4);
+    std::memcpy(&opt_route_doable, &buffer[idx+37], 1);
+
+    std::memcpy(&mass_learn_status, &buffer[idx+38], 1);
+    std::memcpy(&mass, &buffer[idx+39], 4);
+    std::memcpy(&change_vs_normal, &buffer[idx+43], 4);
+
+    std::memcpy(&road_load_learn_status, &buffer[idx+47], 1);
+    std::memcpy(&road_load_coefficients[0], &buffer[idx+48], 4);
+    std::memcpy(&road_load_coefficients[1], &buffer[idx+52], 4);
+    std::memcpy(&road_load_coefficients[2], &buffer[idx+56], 4);
+    std::memcpy(&chnage_vs_epa[0], &buffer[idx+60], 4);
+    std::memcpy(&chnage_vs_epa[1], &buffer[idx+64], 4);
+    std::memcpy(&chnage_vs_epa[2], &buffer[idx+68], 4);
+
+    std::memcpy(&eco_drive_status, &buffer[idx+72], 1);
+    std::memcpy(&saving_per_signal, &buffer[idx+73], 4);
+    std::memcpy(&time_def_per_signal, &buffer[idx+77], 4);
+
+    std::memcpy(&vehicle_follow_status, &buffer[idx+81], 1);
+    std::memcpy(&vehicle_follow_saving, &buffer[idx+82], 4);
+
+    std::memcpy(&reduced_order_model_status, &buffer[idx+86], 1);
+    std::memcpy(&reduced_order_model_accuracy, &buffer[idx+87], 4); 
+
+    return idx+91;    
   }
 };
 
@@ -267,6 +352,7 @@ public:
   positionCMD positionCmd;
   positionVectorCMD positionVectorCmd;
   veocityVectorCMD velocityVectorCmd;
+  mabxInfo mabxinfo;
   uint32_t crc;
 
   bool unpack(const std::vector<uint8_t> &buffer) {
@@ -286,6 +372,11 @@ public:
       case 5:
         idx = positionVectorCmd.unpack(buffer, idx); //position vector CMD
         break;
+
+      case 10:
+        idx = mabxinfo.unpack(buffer, idx); //MABX info
+        break;
+
 			case 254: // Connection Test CMD
 				break;
       case 255: // Reset CMD

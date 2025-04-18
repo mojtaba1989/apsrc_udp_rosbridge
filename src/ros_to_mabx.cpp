@@ -19,7 +19,7 @@ using namespace apsrc_udp_rosbridge;
 class ros_to_mabx
 {
 private:
-  ros::NodeHandle nh_;
+  ros::NodeHandle nh_, pnh_;
   std::mutex udp_mtx_, cwp_mtx_, wp_mtx_, gps_mtx_;
 
   ros::Timer timer_;
@@ -58,6 +58,7 @@ public:
   ros_to_mabx()
   {
     nh_ = ros::NodeHandle();
+    pnh_ = ros::NodeHandle("~");
     loadParams();
 
     if (openConnection(udp_interface_, destination_ip_, destination_port_))
@@ -83,10 +84,10 @@ public:
 
   void loadParams()
   {
-    nh_.param<std::string>("destination_ip", destination_ip_, "127.0.0.1");
-    nh_.param("destination_port", destination_port_, 1552);
-    nh_.param("frequency", frequency_, 10.0);
-    nh_.param("path_eval_size", path_eval_size_, 20);
+    pnh_.param<std::string>("destination_ip", destination_ip_, "127.0.0.1");
+    pnh_.param("destination_port", destination_port_, 1552);
+    pnh_.param("frequency", frequency_, 10.0);
+    pnh_.param("path_eval_size", path_eval_size_, 20);
   }
 
   void baseWaypointCallback(const autoware_msgs::Lane::ConstPtr& msg)
@@ -150,7 +151,6 @@ public:
   void pathShare()
   {
     if (received_base_waypoints_ and closest_waypoint_id_!=-1) {
-      std::unique_lock<std::mutex> wp_share_lock(udp_mtx_);
       udp_msg_.waypoints_array_msg.closest_global_waypoint_id = closest_waypoint_id_;
       if (base_waypoints_.waypoints.size() - closest_waypoint_id_ < 100) {
         udp_msg_.waypoints_array_msg.num_waypoints = base_waypoints_.waypoints.size() - closest_waypoint_id_;
