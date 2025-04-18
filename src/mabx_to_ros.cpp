@@ -298,18 +298,18 @@ public:
     ros_msg.ecoMode.ecoMode_enabled = msg.mabxinfo.mode_blending_flag == 1 ? true : false;
     switch (msg.mabxinfo.mode_in_use)
     {
-    case 0:
-      ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::PRODUCTION;
-      break;
-    case 1:
-      ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::HYBRYD;
-      break;
-    case 2:
-      ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::EV;
-      break;
-    default:
-      ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::PRODUCTION;
+        break;
+      case 1:
+        ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::HYBRYD;
+        break;
+      case 2:
+        ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::EV;
+        break;
+      default:
+        ros_msg.ecoMode.mode_in_use = apsrc_msgs::ecoMode::UNAVAILABLE;
+        break;
     }
     ros_msg.ecoMode.ecoMode_saving = msg.mabxinfo.mode_blending_saving;
 
@@ -331,21 +331,21 @@ public:
     // Mass Learn
     switch (msg.mabxinfo.mass_learn_status)
     {
-    case 0:
-      ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::OFF;
-      break;
-    case 1:
-      ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::ACTIVE;
-      break;
-    case 2:
-      ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::LEARNING;
-      break;
-    case 3:
-      ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::LEARNED;
-      break;
-    default:
-      ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::OFF;
+        break;
+      case 1:
+        ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::ACTIVE;
+        break;
+      case 2:
+        ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::LEARNING;
+        break;
+      case 3:
+        ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::LEARNED;
+        break;
+      default:
+        ros_msg.massLearn.mass_learn_status = apsrc_msgs::MassLearn::UNAVAILABLE;
+        break;
     }
     ros_msg.massLearn.mass = msg.mabxinfo.mass;
     ros_msg.massLearn.mass_change_from_base_percentage = msg.mabxinfo.change_vs_normal;
@@ -353,21 +353,21 @@ public:
     // RRL
     switch (msg.mabxinfo.road_load_learn_status)
     {
-    case 0:
-      ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::OFF;
-      break;
-    case 1:
-      ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::ACTIVE;
-      break;
-    case 2:
-      ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::LEARNING;
-      break;
-    case 3:
-      ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::LEARNED;
-      break;
-    default:
-      ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::OFF;
+        break;
+      case 1:
+        ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::ACTIVE;
+        break;
+      case 2:
+        ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::LEARNING;
+        break;
+      case 3:
+        ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::LEARNED;
+        break;
+      default:
+        ros_msg.roadLoadLearn.road_load_learn_status = apsrc_msgs::RoadLoadLearn::UNAVAILABLE;
+        break;
     }
     ros_msg.roadLoadLearn.F0.coefficient = msg.mabxinfo.road_load_coefficients[0];
     ros_msg.roadLoadLearn.F0.EPA_offset_percentage = msg.mabxinfo.chnage_vs_epa[0];
@@ -379,27 +379,27 @@ public:
     // ECO DRIVE
     switch (msg.mabxinfo.eco_drive_status)
     {
-    case 0:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::OFF;
-      break;
-    case 1:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::INACTIVE;
-      break;
-    case 2:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::CRUISING;
-      break;
-    case 3:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::OPTIMIZING;
-      break;
-    case 4:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::STOPPING;
-      break;
-    case 5:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::DEPARTING;
-      break;
-    default:
-      ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::OFF;
+        break;
+      case 1:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::INACTIVE;
+        break;
+      case 2:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::CRUISING;
+        break;
+      case 3:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::OPTIMIZING;
+        break;
+      case 4:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::STOPPING;
+        break;
+      case 5:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::DEPARTING;
+        break;
+      default:
+        ros_msg.ecoDrive.ecoDrive_status = apsrc_msgs::ecoDrive::UNAVAILABLE;
+        break;
     }
     ros_msg.ecoDrive.saving_per_signal_percentage = msg.mabxinfo.saving_per_signal;
     ros_msg.ecoDrive.time_offset_per_signal = msg.mabxinfo.time_def_per_signal;
@@ -407,36 +407,36 @@ public:
     // ECO CRUISE
     switch (msg.mabxinfo.vehicle_follow_status)
     {
-    case 0:
-      ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::OFF;
-      break;
-    case 1:
-      ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::INACTIVE;
-      break;
-    case 2:
-      ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::ACTIVE;
-      break;
-    default:
-      ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::OFF;
+        break;
+      case 1:
+        ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::INACTIVE;
+        break;
+      case 2:
+        ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::ACTIVE;
+        break;
+      default:
+        ros_msg.ecoCruise.ecoCruise_status = apsrc_msgs::ecoCruise::UNAVAILABLE;
+        break;
     }
     ros_msg.ecoCruise.ecoCruise_saving = msg.mabxinfo.vehicle_follow_saving;
 
     // Reduced Order Model
     switch (msg.mabxinfo.reduced_order_model_status)
     {
-    case 0:
-      ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::OFF;
-      break;
-    case 1:
-      ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::INACTIVE;
-      break;
-    case 2:
-      ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::ACTIVE;
-      break;
-    default:
-      ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::UNAVAILABLE;
-      break;
+      case 0:
+        ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::OFF;
+        break;
+      case 1:
+        ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::INACTIVE;
+        break;
+      case 2:
+        ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::ACTIVE;
+        break;
+      default:
+        ros_msg.reducedOrderModel.reduced_order_model_status = apsrc_msgs::ReducedOrderModel::UNAVAILABLE;
+        break;
     }
     ros_msg.reducedOrderModel.reduced_order_model_accuracy = msg.mabxinfo.reduced_order_model_accuracy;
     

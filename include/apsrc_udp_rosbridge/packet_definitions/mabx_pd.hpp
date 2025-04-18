@@ -367,7 +367,8 @@ public:
 
   bool unpack(const std::vector<uint8_t> &buffer) {
     int idx = header_msg.unpack(buffer);
-    switch (header_msg.msg_type) {
+    switch (header_msg.msg_type)
+    {
       case 1: //Deprecated
         break;
       case 2:
@@ -387,8 +388,8 @@ public:
         idx = mabxinfo.unpack(buffer, idx); //MABX info
         break;
 
-			case 254: // Connection Test CMD
-				break;
+      case 254: // Connection Test CMD
+        break;
       case 255: // Reset CMD
         break;
     }
