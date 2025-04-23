@@ -113,10 +113,15 @@ public:
   void spatnmapCallback(const apsrc_msgs::SPaTnMAP::ConstPtr& msg)
   {
     std::unique_lock<std::mutex> v2x_lock(udp_mtx_);
+    udp_msg_.spat_msg.intersection_id = msg->intersection_id;
+    udp_msg_.spat_msg.stop_wp_id = msg->stop_waypoint;
+    udp_msg_.spat_msg.depart_wp_id = msg->depart_waypoint;
     udp_msg_.spat_msg.distance = msg->distance_to_stop;
     udp_msg_.spat_msg.phase = msg->phase;
     udp_msg_.spat_msg.time_to_change = msg->time_to_stop;
-    udp_msg_.spat_msg.stop_wp_id = msg->stop_waypoint;
+    udp_msg_.spat_msg.cycle_time = {msg->cycle_time_red,
+                                    msg->cycle_time_yellow,
+                                    msg->cycle_time_green};
 
   }
 
