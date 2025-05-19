@@ -119,10 +119,9 @@ public:
     udp_msg_.spat_msg.distance = msg->distance_to_stop;
     udp_msg_.spat_msg.phase = msg->phase;
     udp_msg_.spat_msg.time_to_change = msg->time_to_stop;
-    udp_msg_.spat_msg.cycle_time = {msg->cycle_time_red,
-                                    msg->cycle_time_yellow,
-                                    msg->cycle_time_green};
-
+    udp_msg_.spat_msg.cycle_time[0] = msg->cycle_time_red;
+    udp_msg_.spat_msg.cycle_time[1] = msg->cycle_time_yellow;
+    udp_msg_.spat_msg.cycle_time[2] = msg->cycle_time_green;
   }
 
   // TODO: void udpReceivedReportCallback(){}
