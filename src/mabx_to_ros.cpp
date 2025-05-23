@@ -47,6 +47,7 @@ public:
   mabx_to_ros()
   {
     nh_ = ros::NodeHandle();
+    pnh_ = ros::NodeHandle("~");
     loadParams();
     if (startServer(udp_server_, server_ip_, server_port_))
     {
@@ -128,6 +129,10 @@ public:
         break;
       case 5:
         position_vector_cmd_handler(request_msg);
+        last_msg_time_ = ros::Time::now();
+        break;
+      case 10:
+        vehicle_intel_info(request_msg);
         last_msg_time_ = ros::Time::now();
         break;
       case 254: // Connection Test CMD // TODO

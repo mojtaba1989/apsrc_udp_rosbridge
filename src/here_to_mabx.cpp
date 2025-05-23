@@ -50,7 +50,7 @@ public:
     UDP_PACKETS::Here_Msg udp_msg;
     uint8_t number_of_routes = msg->routes.size();
     for (int ridx = 0; ridx < number_of_routes; ridx++){
-      ros::Duration(1.0).sleep();
+      ros::Duration(0.2).sleep();
       udp_msg = {};
       udp_msg.route_id = ridx + 1;
       udp_msg.total_number_of_routes = number_of_routes;
